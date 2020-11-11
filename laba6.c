@@ -14,12 +14,11 @@ void error() {
 	printf("\tError. Try again.\n");
 }
 
-int main()
-{
+int main() {
 	setlocale(LC_ALL, "Russian");
 	int** N;
 
-	int i, j, n, x, d;
+	int i, j, n, x, d = 0;
 	//Ввод n.
 	printf("Введите n. ");
 	do {
@@ -34,13 +33,13 @@ int main()
 
 	//Объявление строк.
 	for (i = 0; i < n; i++) {
-		N[i] = (int*)malloc(2 * n, sizeof(int));
+		N[i] = (int*)malloc(2 * n * sizeof(int));
 	}
 
 	//Объявление и заполнение столбцов.
 	for (i = 0; i < n; i++) {
 		for (j = 0; j < (2 * n); j++) {
-			N[i][j] = rand() % 200 - 100;
+			N[i][j] = rand() % 100 + 1;
 		}
 	}
 
@@ -62,28 +61,21 @@ int main()
 	} while (x <= 0);
 	printf("\n");
 
-	int *arr = (int*)malloc(n * sizeof(int));
+	int* arr = (int*)calloc(n, sizeof(int));
 
 	//Цикл проверки и выполнения главного условия задачи.
 	for (i = 0; i < n; i++) {
-
-		while ((j < (2 * n)) & (d = 0)) {
+		for (j = 0; j < (2 * n); j++) {
 			if (N[i][j] > x) {
-				d = +1;
+				arr[i] = 0;
+				break;
+			}
+			else {
+				arr[i] = 1;
+				
 			}
 		}
-
-		if (d = 0) {
-			arr[i] = 1;
-			d = 0;
-		}
-		else {
-			arr[i] = 0;
-			d = 0;
-		}
-
 	}
-
 	//Цикл вывода результата.
 	for (i = 0; i < n; i++) {
 		printf("%d\t", arr[i]);
